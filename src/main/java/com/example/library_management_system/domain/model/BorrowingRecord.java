@@ -4,12 +4,16 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
 public class BorrowingRecord extends BaseModel{
@@ -28,10 +32,4 @@ public class BorrowingRecord extends BaseModel{
     @Column(name = "returning_date", nullable = false)
     private LocalDate returningDate;
 
-    public BorrowingRecord(Book book, Patron patron, LocalDate borrowingDate, LocalDate returningDate) {
-        this.book = book;
-        this.patron = patron;
-        this.borrowingDate = borrowingDate;
-        this.returningDate = returningDate;
-    }
 }
