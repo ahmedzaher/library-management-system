@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,11 +34,13 @@ public class PatronService {
         );
     }
 
+    @Transactional
     public ApiResponse<PatronDto> add(PatronDto patronDto) {
         var patron = patronRepo.save(patronMapper.map(patronDto));
         return new ApiResponse<>(patronMapper.map(patron));
     }
 
+    @Transactional
     public ApiResponse<PatronDto> update(Long id, PatronDto patronDto) {
         var patron = patronRepo.findById(id).orElseThrow(
                 () -> new NotFoundException("patron not found -- id = " + id)
@@ -47,6 +50,7 @@ public class PatronService {
         return new ApiResponse<>(patronMapper.map(patron));
     }
 
+    @Transactional
     public ApiResponse<?> delete(Long id) {
         var patron = patronRepo.findById(id).orElseThrow(
                 () -> new NotFoundException("patron not found -- id = " + id)
